@@ -1,0 +1,47 @@
+
+\documentclass[a4paper, 12pt, colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=blue, hidelinks]{article}
+\usepackage{xcolor}
+
+\usepackage[a-1b]{pdfx}
+
+\usepackage[italian]{babel} % Language
+%Font
+\usepackage{comment}
+
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{csquotes}
+
+\usepackage{svg}
+\usepackage{array}
+\usepackage{float} % Required for the [H] option
+\usepackage{caption}
+%\captionsetup[figure]{font=small,labelfont=small}
+
+\usepackage{setspace}
+\setstretch{1.5} % Interlinea
+% Rientro dei paragrafi
+\setlength{\parindent}{20pt}
+%Bibliografia
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+
+
+\begin{document}
+\pagenumbering{roman}
+
+\input{Progetto/Frontespizio}
+\tableofcontents % Table of contents
+\newpage
+\input{Progetto/Sommario} % Abstract
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\input{Progetto/Abstract}
+\input{Progetto/Progettazione_Concettuale}
+\input{Progetto/Progettazione_Logica}
+\input{Progetto/PostGre}
+\input{Progetto/Software}
+
+\end{document}
+
