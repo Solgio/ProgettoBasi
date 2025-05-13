@@ -70,6 +70,120 @@ Questo si riassume nelle due seguenti operazioni:
 \end{center}
 \end{comment}
 
+Assumendo i seguenti volumi nella base di dati:
+
+\begin{center}
+        \begin{table}[]
+        \centering
+        \begin{tabular} {|m{4em}|m{10em}|m{15em}|m{7em}|}
+        \hline
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\ [0.5ex]
+        \hline\hline
+            Corriere & E & 1000 \\
+            \hline
+            Tracking & E & 120 000 \\
+            \hline
+            Pacco & E & 120 000 \\
+            \hline
+            Consegna & R & 120 000 \\
+            \hline
+            Status & R & 120 000 \\
+            \hline
+           \end{tabular}
+            \caption{Tabella dei Volume}
+    \end{table}
+\end{center}
+
+la seguente analisi serve per stabilire se sia utile o meno tenere l’attributo ridondante
+PACCHIATTIVI in CORRIERE.
+
+\textbf{Con Ridondanza:} Analizziamo prima il costo totale con ridondanza.
+\textbf{Operazione 1:} 
+     \begin{center}
+        \begin{table}[]
+        \centering
+        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}|}
+        \hline
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
+        \hline\hline
+            Tracking & E & 1 & S & 120\\
+            \hline
+            Pacco & E & 1 & S & 120\\
+            \hline
+            Status & R & 1 & S & 120\\
+            \hline
+            Corriere & E & 1 & S & 120\\
+            \hline
+           \end{tabular}
+            \caption{Tabella dei Volume}
+    \end{table}
+\end{center}
+    \begin{center}
+
+        \begin{table}[]
+        \centering
+        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}}
+        \hline
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
+        \hline\hline
+            Corriere & E & 1 & L & 48\\
+            \hline
+           \end{tabular}
+            \caption{Tabella dei Volume}
+    \end{table}
+\end{center}
+Assumendo costo doppio per gli accessi in scrittura rispetto a quelli in lettura, il costo totale con ridondanza è:
+Costo totale con ridondanza = 120*4*2+48*1= 1080+48=1128
+
+\textbf{Senza Ridondanza:} Analizziamo prima il costo totale senza ridondanza.
+\begin{itemize}
+    \item \textbf{Operazione 1:} 
+     \begin{center}
+        \begin{table}[]
+        \centering
+        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}|}
+        \hline
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
+        \hline\hline
+            Tracking & E & 1 & S & 120\\
+            \hline
+            Pacco & E & 1 & S & 120\\
+            \hline
+            Status & R & 1 & S & 120\\ 
+            \hline
+           \end{tabular}
+            \caption{Tabella dei Volume}
+    \end{table}
+\end{center}
+    \item \textbf{Operazione 2(Con circa 120 000/1000=120 pacchi consegnati al giorno):}
+    \begin{center}
+        \begin{table}[]
+        \centering
+        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}|}
+        \hline
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo}\\ [0.5ex]
+        \hline\hline
+            Corriere & E & 1 & L & x48\\
+            \hline
+            Pacco & E & 120 & L & x48\\
+            \hline
+            Status & R & 120 & L & x48\\ 
+            \hline
+           \end{tabular}
+            \caption{Tabella dei Volume}
+    \end{table}
+\end{center}
+\end{itemize}
+Assumendo costo doppio per gli accessi in scrittura rispetto a quelli in lettura, il costo totale senza ridondanza è:
+Costo totale senza ridondanza = 120*3*2+48*1+120*48*2= 720+48+11520=12288
+
+\textbf{Conclusione:} Il costo totale con ridondanza è 1128, mentre il costo totale senza ridondanza è 12288.\\
+L'analisi suggerisce dunque di mantenere l'attributo ridondante PACCHIATTIVI in CORRIERE, in quanto il costo totale con ridondanza è significativamente inferiore rispetto al costo totale senza ridondanza, rendendo così gli accessi ottimizati.\\
+Inoltre, l'attributo ridondante PACCHIATTIVI in CORRIERE è utile per monitorare l'operato di ogni corriere e per ottimizzare le operazioni di consegna.\\
+
+
+
+
 \subsection{Eliminazione delle Generalizzazioni}
 
 Le generalizzazioni descritte in Sezione 3 vengono eliminate attraverso una ristrutturazione dello schema concettuale, con l’obiettivo di semplificare la successiva implementazione del modello relazionale e ridurre la presenza di valori nulli. Le modifiche
