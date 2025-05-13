@@ -16,163 +16,146 @@ Questo si riassume nelle due seguenti operazioni:
 \end{itemize}
 
 
-\begin{comment}
-\begin{center}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|m{4em}|m{10em}|m{15em}|m{7em}|}
-    \hline
-    \textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\ [0.5ex] 
-    \hline\hline
-        Filiale & Filiale di un'azienda di spedizione & Nome, Città, Tipo, Indirizzo & Nome, Città\\
-        \hline
-         Tracking & Storico del Tracking di un pacco & DataOra, IdPacco, Status, Note, NomeCheckPoint, CittàCheckPoint & IdPacco, DataOra\\
-         \hline
-        Pacco & Elemento spedito & Id, Tipologia, Dimensioni, Costo, DataOrdine, DataSpedizione & Id\\
-        \hline
-        Pacchi Assicurati & Pacco Assicurato & TipoAssicurazione &  \\
-        \hline
-        Pacchi Regalo & Pacco Regalo & Dedica, TipoCarta &  \\
-        \hline
-        Cliente & Proprietario del Pacco & Email, Nome, Cognome, Indirizzo, Telefono & Email\\
-        \hline
-        Corriere & Addetto alla spedizione di un pacco & C.F., Grado, Disponibilità, PacchiAttivi & C.F.\\
-        \hline
-    \end{tabular}
-    \caption{Tabella delle Entità}
-    \label{tab:entità}
-\end{table}
-\end{center}
 
-\begin{center}
-\begin{table}[]
+
+\begin{table}[ht]
     \centering
-    \begin{tabular}{|m{4em}|m{10em}|m{15em}|m{7em}|}
-    \hline
-    \textbf{Relazione} & \textbf{Descrizione} & \textbf{Componente} & \textbf{Attributi}  \textbf \\ [0.5ex] 
-    \hline\hline
-        Sede & Sede di un Corriere & Corriere, Filiale & Attuale\\
-        \hline
-         Transito & Posizione Pacco & Tracking, Filiale & \\
-         \hline
-        Status & Informazioni sul tracciamento del pacco & Pacco, Tracking & \\
-        \hline
-        Contiene & Composizione dei Bundle & Pacco,Bundle & Quantità \\
-        \hline
-        Ordine & Ordine di un pacco di un cliente & Cliente, Pacco &  \\
-        \hline
-        Consegna & Consegna di un pacco da parte di un Corriere & Corriere, Pacco & \\
-        \hline
+    \begin{tabular}{clcc}
+    \toprule
+
+    \textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\ [0.5ex] 
+    \midrule
+        Filiale & Filiale di un'azienda di spedizione & Nome, Città, Tipo, Indirizzo & Nome, Città\\
+        
+         Tracking & Storico del Tracking di un pacco & DataOra, IdPacco, Status, Note, NomeCheckPoint, CittàCheckPoint & IdPacco, DataOra\\
+         
+        Pacco & Elemento spedito & Id, Tipologia, Dimensioni, Costo, DataOrdine, DataSpedizione & Id\\
+        
+        Pacchi Assicurati & Pacco Assicurato & TipoAssicurazione &  \\
+        
+        Pacchi Regalo & Pacco Regalo & Dedica, TipoCarta &  \\
+        
+        Cliente & Proprietario del Pacco & Email, Nome, Cognome, Indirizzo, Telefono & Email\\
+        
+        Corriere & Addetto alla spedizione di un pacco & C.F., Grado, Disponibilità, PacchiAttivi & C.F.\\
+    \bottomrule
     \end{tabular}
     \caption{Tabella delle Entità}
     \label{tab:entità}
 \end{table}
-\end{center}
+
+
 \end{comment}
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{clcc}
+    \toprule
+    \textbf{Relazione} & \textbf{Descrizione} & \textbf{Componente} & \textbf{Attributi}  \\ [0.5ex] 
+    \midrule
+        Sede & Sede di un Corriere & Corriere, Filiale & Attuale\\
+        Transito & Posizione Pacco & Tracking, Filiale & \\
+        Status & Informazioni sul tracciamento del pacco & Pacco, Tracking & \\
+        Contiene & Composizione dei Bundle & Pacco,Bundle & Quantità \\
+        Ordine & Ordine di un pacco di un cliente & Cliente, Pacco &  \\
+        Consegna & Consegna di un pacco da parte di un Corriere & Corriere, Pacco & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tabella delle Relazioni}
+    \label{tab:relzioni}
+\end{table}
+
+
 
 Assumendo i seguenti volumi nella base di dati:
 
-\begin{center}
-        \begin{table}[]
-        \centering
-        \begin{tabular} {|m{4em}|m{10em}|m{15em}|m{7em}|}
-        \hline
-        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\ [0.5ex]
-        \hline\hline
-            Corriere & E & 1000 \\
-            \hline
-            Tracking & E & 120 000 \\
-            \hline
-            Pacco & E & 120 000 \\
-            \hline
-            Consegna & R & 120 000 \\
-            \hline
-            Status & R & 120 000 \\
-            \hline
-           \end{tabular}
-            \caption{Tabella dei Volume}
-    \end{table}
-\end{center}
+\begin{table}[ht]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\ [0.5ex]
+\midrule
+    Corriere & E & 1000 \\
+    Tracking & E & 120 000 \\
+    Pacco & E & 120 000 \\
+    Consegna & R & 120 000 \\
+    Status & R & 120 000 \\
+\bottomrule
+    \end{tabular}
+    \caption{Tabella dei Volume}
+\end{table}
+
 
 la seguente analisi serve per stabilire se sia utile o meno tenere l’attributo ridondante
 PACCHIATTIVI in CORRIERE.
 
-\textbf{Con Ridondanza:} Analizziamo prima il costo totale con ridondanza.
+\textbf{Con Ridondanza:} Analizziamo prima il costo totale con ridondanza.\\
 \textbf{Operazione 1:} 
-     \begin{center}
-        \begin{table}[]
-        \centering
-        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}|}
-        \hline
-        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
-        \hline\hline
-            Tracking & E & 1 & S & 120\\
-            \hline
-            Pacco & E & 1 & S & 120\\
-            \hline
-            Status & R & 1 & S & 120\\
-            \hline
-            Corriere & E & 1 & S & 120\\
-            \hline
-           \end{tabular}
-            \caption{Tabella dei Volume}
-    \end{table}
-\end{center}
-    \begin{center}
 
-        \begin{table}[]
-        \centering
-        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}}
-        \hline
-        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
-        \hline\hline
-            Corriere & E & 1 & L & 48\\
-            \hline
-           \end{tabular}
-            \caption{Tabella dei Volume}
-    \end{table}
-\end{center}
+\begin{table}[ht]
+\centering
+\begin{tabular} {lllll}
+    \toprule
+    \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
+    \midrule
+        Tracking & E & 1 & S & 120\\
+        Pacco & E & 1 & S & 120\\
+        Status & R & 1 & S & 120\\
+        Corriere & E & 1 & S & 120\\
+    \bottomrule
+\end{tabular}
+\caption{Tabella dei Volume}
+\end{table}
+
+
+\textbf{Operazione 2:}\\
+\begin{table}[ht]
+\centering
+\begin{tabular} {lllll}
+    \toprule
+    \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
+    \midrule
+        Corriere & E & 1 & L & 48\\
+    \bottomrule
+\end{tabular}
+\caption{Tabella dei Volume}
+\end{table}
+
 Assumendo costo doppio per gli accessi in scrittura rispetto a quelli in lettura, il costo totale con ridondanza è:
 Costo totale con ridondanza = 120*4*2+48*1= 1080+48=1128
 
 \textbf{Senza Ridondanza:} Analizziamo prima il costo totale senza ridondanza.
 \begin{itemize}
     \item \textbf{Operazione 1:} 
-     \begin{center}
-        \begin{table}[]
+     
+        \begin{table}[ht]
         \centering
-        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}|}
-        \hline
+        \begin{tabular} {lllll}
+        \toprule
         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
-        \hline\hline
+        \midrule
             Tracking & E & 1 & S & 120\\
-            \hline
             Pacco & E & 1 & S & 120\\
-            \hline
             Status & R & 1 & S & 120\\ 
-            \hline
+        \bottomrule
            \end{tabular}
             \caption{Tabella dei Volume}
     \end{table}
-\end{center}
+
     \item \textbf{Operazione 2(Con circa 120 000/1000=120 pacchi consegnati al giorno):}
-    \begin{center}
-        \begin{table}[]
+        \begin{table}[ht]
         \centering
-        \begin{tabular} {|m{5em}|m{5em}|m{5em}|m{5em}|m{5em}|}
-        \hline
-        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo}\\ [0.5ex]
-        \hline\hline
+        \begin{tabular} {lcccc}
+        \toprule
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} & \textbf{Accessi al giorno}\\ [0.5ex]
+        \midrule
             Corriere & E & 1 & L & x48\\
-            \hline
             Pacco & E & 120 & L & x48\\
-            \hline
-            Status & R & 120 & L & x48\\ 
-            \hline
+            Consegna & R & 120 & L & x48\\ 
+            \bottomrule
            \end{tabular}
             \caption{Tabella dei Volume}
     \end{table}
-\end{center}
+
 \end{itemize}
 Assumendo costo doppio per gli accessi in scrittura rispetto a quelli in lettura, il costo totale senza ridondanza è:
 Costo totale senza ridondanza = 120*3*2+48*1+120*48*2= 720+48+11520=12288
@@ -197,7 +180,7 @@ Un'altra opzione consisterebbe  nell'aggiungere un'altra relazione tra BUNDLE e 
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=1.0\textwidth]{Resources/ML.png}
+\includegraphics[width=1.0\textwidth]{Resources/ML.png}
 \caption{Diagramma della Base di Dati dopo l'eliminazione delle Generalizzazioni}
 \label{ML}
 \end{figure}

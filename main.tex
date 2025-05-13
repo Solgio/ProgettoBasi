@@ -1,40 +1,32 @@
-
 \documentclass[a4paper, 12pt, colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=blue, hidelinks]{article}
 \usepackage{xcolor}
-
 \usepackage[a-1b]{pdfx}
-
-\usepackage[italian]{babel} % Language
-%Font
+\usepackage[italian]{babel}
 \usepackage{comment}
-
-
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{csquotes}
-
 \usepackage{svg}
 \usepackage{array}
-\usepackage{float} % Required for the [H] option
+\usepackage{float}
 \usepackage{caption}
-%\captionsetup[figure]{font=small,labelfont=small}
-
+\usepackage{booktabs}
 \usepackage{setspace}
-\setstretch{1.5} % Interlinea
-% Rientro dei paragrafi
+\setstretch{1.5}
 \setlength{\parindent}{20pt}
-%Bibliografia
 \usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
-
+\usepackage{tocloft} % Add this
+\setcounter{tocdepth}{3} % Add this (before \tableofcontents)
 
 \begin{document}
 \pagenumbering{roman}
 
 \input{Progetto/Frontespizio}
-\tableofcontents % Table of contents
+\tableofcontents
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
+
 \input{Progetto/Abstract}
 \input{Progetto/Progettazione_Concettuale}
 \input{Progetto/Progettazione_Logica}
@@ -42,4 +34,3 @@
 \input{Progetto/Software}
 
 \end{document}
-
