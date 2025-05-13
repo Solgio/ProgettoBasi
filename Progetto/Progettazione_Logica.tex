@@ -17,36 +17,32 @@ Questo si riassume nelle due seguenti operazioni:
 
 
 
-
-\begin{table}[ht]
+\begin{table}[H]
     \centering
-    \begin{tabular}{clcc}
-    \toprule
-
-    \textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\ [0.5ex] 
-    \midrule
-        Filiale & Filiale di un'azienda di spedizione & Nome, Città, Tipo, Indirizzo & Nome, Città\\
-        
-         Tracking & Storico del Tracking di un pacco & DataOra, IdPacco, Status, Note, NomeCheckPoint, CittàCheckPoint & IdPacco, DataOra\\
-         
-        Pacco & Elemento spedito & Id, Tipologia, Dimensioni, Costo, DataOrdine, DataSpedizione & Id\\
-        
-        Pacchi Assicurati & Pacco Assicurato & TipoAssicurazione &  \\
-        
-        Pacchi Regalo & Pacco Regalo & Dedica, TipoCarta &  \\
-        
-        Cliente & Proprietario del Pacco & Email, Nome, Cognome, Indirizzo, Telefono & Email\\
-        
-        Corriere & Addetto alla spedizione di un pacco & C.F., Grado, Disponibilità, PacchiAttivi & C.F.\\
-    \bottomrule
+    \begin{tabular}{p{2.5cm}|p{4cm}|p{5cm}|p{3cm}}
+    \hline
+    \textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\
+    \hline
+    Filiale         & Filiale di un'azienda di spedizione & Nome, Città, Tipo, Indirizzo & Nome, Città \\
+    
+    Tracking        & Storico del Tracking di un pacco & DataOra, IdPacco, Status, Note, NomeCheckPoint, CittàCheckPoint & IdPacco, DataOra \\
+    
+    Pacco           & Elemento spedito & Id, Tipologia, Dimensioni, Costo, DataOrdine, DataSpedizione & Id \\
+    
+    Pacchi Assicurati & Pacco Assicurato & TipoAssicurazione & — \\
+    
+    Pacchi Regalo   & Pacco Regalo & Dedica, TipoCarta & — \\
+    
+    Cliente         & Proprietario del Pacco & Email, Nome, Cognome, Indirizzo, Telefono & Email \\
+    
+    Corriere        & Addetto alla spedizione di un pacco & C.F., Grado, Disponibilità, PacchiAttivi & C.F. \\
+    
     \end{tabular}
     \caption{Tabella delle Entità}
     \label{tab:entità}
 \end{table}
 
-
-\end{comment}
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \begin{tabular}{clcc}
     \toprule
@@ -68,7 +64,7 @@ Questo si riassume nelle due seguenti operazioni:
 
 Assumendo i seguenti volumi nella base di dati:
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{lcc}
 \toprule
@@ -91,7 +87,7 @@ PACCHIATTIVI in CORRIERE.
 \textbf{Con Ridondanza:} Analizziamo prima il costo totale con ridondanza.\\
 \textbf{Operazione 1:} 
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular} {lllll}
     \toprule
@@ -108,7 +104,7 @@ PACCHIATTIVI in CORRIERE.
 
 
 \textbf{Operazione 2:}\\
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular} {lllll}
     \toprule
@@ -127,7 +123,7 @@ Costo totale con ridondanza = 120*4*2+48*1= 1080+48=1128
 \begin{itemize}
     \item \textbf{Operazione 1:} 
      
-        \begin{table}[ht]
+        \begin{table}[H]
         \centering
         \begin{tabular} {lllll}
         \toprule
@@ -190,12 +186,11 @@ Un'altra opzione consisterebbe  nell'aggiungere un'altra relazione tra BUNDLE e 
 Lo schema ristrutturato in Figura \ref{ML} contiene solamente costrutti mappabili in corrispettivi dello schema relazionale detto anche schema logico. Lo schema logico è rappresentato a seguire, dove l'asterisco dopo il nome degli attributi indica quelli che ammettono valori nulli.
 \begin{itemize}
     \setlength{\itemindent}{+0in}
-    \item \textbf{Pacco}(\underline{ID}, Tipologia, Dimensioni, Costo, DataOraOrdine, DataOraPrevista, Cliente, Corriere, TrackingId, TipoAssicurazione*, Dedica*, TipoCarta*)
+    \item \textbf{Pacco}(\underline{ID}, Tipologia, Dimensioni, Costo, DataOraOrdine, DataOraPrevista, Cliente, Corriere, TipoAssicurazione*, Dedica*, TipoCarta*)
         \begin{itemize}
             \setlength{\itemindent}{+.2in}
             \item Pacco.Cliente $\rightarrow$ Cliente.Email 
             \item Pacco.Corriere $\rightarrow$ Corriere.C.F.
-            \item Pacco.TrackingId $\rightarrow$ Tracking.DataOra
         \end{itemize}
     \item \textbf{Bundle-Pacchi}(\underline{IdBundle, IdContenuto}, Quantità)
         \begin{itemize}
