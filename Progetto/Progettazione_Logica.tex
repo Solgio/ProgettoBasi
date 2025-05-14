@@ -201,11 +201,7 @@ Lo schema ristrutturato in Figura \ref{ML} contiene solamente costrutti mappabil
             \item Bundle.IdContenuto $\rightarrow$ Pacco.Id
         \end{itemize}
         
-    \item \textbf{Corriere}(\underline{C.F.}, Agenzia, Grado, Disponibilità, NomeSede, CittàSede)
-        \begin{itemize}
-            \setlength{\itemindent}{+.2in}
-            \item Corriere.(NomeSede, CittàSede) $\rightarrow$ Filiale.(Nome, Città)
-        \end{itemize}
+    \item \textbf{Corriere}(\underline{C.F.}, Agenzia, Grado, Disponibilità, Pacchi Attivi)
     \item \textbf{Filiale}(\underline{Nome, Città}, Tipo, Indirizzo)
     \item \textbf{Tracking}(\underline{IdPacco, DataOra}, Status, Note*, NomeCheckPoint,\\CittàCheckPoint)
         \begin{itemize}
