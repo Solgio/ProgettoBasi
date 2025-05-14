@@ -4,7 +4,6 @@ coerente le informazioni relative a pacchi, ai clienti, ai corrieri, alle filial
 Nel contesto della gestione della spedizione di pacchi, la base di dati proposta distingue tra pacchi bundle (come aggregatore di pacchi per un singolo ordine), pacchi assicurati (dotati di tipologie diverse di assicurazione) e pacchi regalo (dotati di una dedica e incartamento non presente nelle altre tipologie). Attributi comuni sono però quelli legati alla tipologia di pacco, costo, dimensioni, date di ordine e di arrivo e un Identificativo.\\ 
 Il sistema di Tracking lega all'Identificativo del pacco una DataOra come chiave in modo da costruire uno storico degli aggiornamenti di Status e Posizione per ogni pacco che manterrà come informazione l'ultimo aggiornamento del Tracking. \\Questa base di dati è progettata per garantire un’archiviazione efficiente e strutturata delle informazioni, migliorando il recupero e l’analisi dei dati. L’organizzazione sistematica delle informazioni contribuisce a un utilizzo più efficace delle risorse, ottimizzando la gestione delle strutture di tracking e supportando i processi decisionali.
 
-\newpage
 \section{Analisi dei Requisiti}
 Questa sezione riassume i requisiti a cui deve sottostare la base di dati.\\
 \textbf{Pacco}. Ogni Pacco è identificato da un codice alfanumerico univoco e contiene le seguenti
@@ -109,7 +108,7 @@ informazioni:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{Resources/ER.png}
+\includegraphics[width=0.6\textwidth]{Resources/ER.png}
 \caption{Diagramma ER della Base di Dati relativa al sistema di spedizioni}
 \label{ER}
 \end{figure}
