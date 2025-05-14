@@ -1,0 +1,8 @@
+CREATE TABLE CLIENTE(
+  email VARCHAR(20) NOT NULL, 
+  nome VARCHAR(20) NOT NULL, 
+  cognome VARCHAR(20) NOT NULL, 
+  indirizzo VARCHAR(20) NOT NULL, 
+  telefono VARCHAR (15) NULL,
+  PRIMARY KEY(email)
+  )

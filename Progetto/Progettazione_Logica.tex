@@ -16,13 +16,12 @@ Questo si riassume nelle due seguenti operazioni:
 \end{itemize}
 
 
-
 \begin{table}[H]
     \centering
-    \begin{tabular}{p{2.5cm}|p{4cm}|p{5cm}|p{3cm}}
-    \hline
+    \begin{tabular}{p{2.5cm} p{4cm} p{5cm} p{3cm}}
+    \toprule
     \textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\
-    \hline
+    \midrule
     Filiale         & Filiale di un'azienda di spedizione & Nome, Città, Tipo, Indirizzo & Nome, Città \\
     
     Tracking        & Storico del Tracking di un pacco & DataOra, IdPacco, Status, Note, NomeCheckPoint, CittàCheckPoint & IdPacco, DataOra \\
@@ -36,7 +35,7 @@ Questo si riassume nelle due seguenti operazioni:
     Cliente         & Proprietario del Pacco & Email, Nome, Cognome, Indirizzo, Telefono & Email \\
     
     Corriere        & Addetto alla spedizione di un pacco & C.F., Grado, Disponibilità, PacchiAttivi & C.F. \\
-    
+    \bottomrule
     \end{tabular}
     \caption{Tabella delle Entità}
     \label{tab:entità}
@@ -169,8 +168,11 @@ Le generalizzazioni descritte in Sezione 3 vengono eliminate attraverso una rist
 vengono applicate come segue:
 
 \textbf{PACCHI}: La generalizzazione parziale di PACCHI viene rimossa tramite tre operazioni distinte che si occupano delle tre entità figlie, realizzando dunque una soluzione "ibrida".\\
-Per PACCHI ASSICURATI e per PACCHI REGALO si è deciso di sostituire la generalizzazione con l'accorpamento delle due entità figlie nel padre. Le due entità figlie verranno dunque eliminate e la loro funzione sarà sostituita da degli attributi che saranno attribuiti all'entità padre. Questa scelta si giustifica di fronte al basso livello di "profondità" e "annidamento" degli attributi delle entità figlie in questione. Infatti queste entità non hanno relazioni con altre entità che non siano quella padre. Ne consegue dunque che l'introduzione di ulteriori attributi nel padre produce una quantità di valori NULL limitata, che non produce un effetto a cascata su ulteriori entità. Infatti in questo caso la presenza di valori NULL negli attributi sostituivi sarà dunque limitata a soli tre attributi.\\
-L'entità figlia BUNDLE dispone già di per sé di una relazione con l'entità padre e merita dunque un trattamento differente.\\
+Per PACCHI ASSICURATI e per PACCHI REGALO si è deciso di sostituire la generalizzazione con l'accorpamento delle due entità figlie nel padre. Le due entità figlie verranno dunque eliminate e 
+la loro funzione sarà sostituita da degli attributi che saranno attribuiti all'entità padre. 
+Questa scelta si giustifica di fronte al basso livello di "profondità" e "annidamento" degli attributi delle entità figlie in questione. Infatti queste entità non hanno relazioni con altre entità che non siano quella padre. 
+Ne consegue dunque che l'introduzione di ulteriori attributi nel padre produce una quantità di valori NULL limitata, che non produce un effetto a cascata su ulteriori entità. Infatti in questo caso la presenza di valori NULL negli attributi sostituivi sarà dunque limitata a soli tre attributi.\\
+L'entità figlia BUNDLE dispone già di per sé di una relazione con l'entità padre e merita dunque un trattamento differente. Il vincolo originario che un PACCO ASSICURATO, non possa essere anche PACCO REGALO e viceversa verrà quindi mantenuto grazie alla creazione di check che controllano che gli stati dei parametri nel padre siano coerenti: se sono \textit{not null} alcuni lo dovranno essere gli altri.\\
 Incorporarla direttamente nella relazione padre renderebbe la sua gestione particolarmente complessa, con la necessità dell'aggiunta di numerosi attributi per mantenere l'insieme delle caratteristiche originali. Questo corrisponderebbe tra l'altro a un numero rilevante di attributi che si troverebbero poi molto spesso a essere messi a NULL (nel caso di un non-BUNDLE). 
 Un'altra opzione consisterebbe  nell'aggiungere un'altra relazione tra BUNDLE e PACCHI, riducendo in questo caso il numero di potenziali NULL. In questo caso però si avrebbero però due relazioni e due entità per gestire una struttura che corrisponde a una semplice entità con una relazione ricorsiva con un attributo. Abbiamo dunque deciso di optare per quest'ultima operazione di traduzione che comporta una notevole semplificazione e una gestione efficiente delle risorse disponibili.
 
