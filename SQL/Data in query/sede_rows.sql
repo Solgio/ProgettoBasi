@@ -1,13 +1,4 @@
-CREATE TABLE SEDE(
-  corriere CHAR(16) NOT NULL, 
-  sede_nome VARCHAR(20) NOT NULL, 
-  sede_città VARCHAR(20) NOT NULL,
-  PRIMARY KEY(corriere,sede_nome,sede_città),
-  FOREIGN KEY (corriere) REFERENCES corriere(cf),
-  FOREIGN KEY (sede_nome,sede_città) REFERENCES filiale(nome,città)
-  )
-
-  INSERT INTO "public"."sede" ("corriere", "sede_nome", "sede_città", "attuale") VALUES 
+INSERT INTO "public"."sede" ("corriere", "sede_nome", "sede_città", "attuale") VALUES 
 ('BLFR46D25W783N  ', 'Craftsman Loc', 'Mountain Region', 'true'), 
 ('BLFR46D25W783N  ', 'Doctor Loc', 'Mountain Region', 'false'), 
 ('GCDX17P54T329M  ', 'Film Direct', 'Central Region', 'true'), 

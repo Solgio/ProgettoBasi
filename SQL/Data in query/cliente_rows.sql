@@ -1,13 +1,4 @@
-CREATE TABLE CLIENTE(
-  email VARCHAR(20) NOT NULL, 
-  nome VARCHAR(20) NOT NULL, 
-  cognome VARCHAR(20) NOT NULL, 
-  indirizzo VARCHAR(20) NOT NULL, 
-  telefono VARCHAR (15) NULL,
-  PRIMARY KEY(email)
-  )
-
-  INSERT INTO "public"."cliente" ("email", "nome", "cognome", "indirizzo", "telefono") VALUES 
+INSERT INTO "public"."cliente" ("email", "nome", "cognome", "indirizzo", "telefono") VALUES 
 ('amelie@brid.com', 'Amelie', 'Strand', '22 President Ave', '555-2023 '), 
     ('cliff@bbla.com', 'Cliff', 'Unger', '103 Combat Way', '555-3023 '), 
     ('craftsman@usg.com', 'Craftsman', 'Equipment', '18 Workshop St', '555-3789 '), 

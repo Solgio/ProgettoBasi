@@ -1,19 +1,3 @@
-CREATE TABLE PACCO(
-    id CHAR(20) PRIMARY KEY, 
-    tipologia tipologia NOT NULL, 
-    dimensioni INT NOT NULL, 
-    costo INT NOT NULL, 
-    dataOra_ordine TIMESTAMP NOT NULL,
-    dataOra_prevista TIMESTAMP NOT NULL,
-    cliente VARCHAR (30) NOT NULL, 
-    corriere CHAR (16) NOT NULL, 
-    tipo_assicurazione tipo_assicurazione NULL, 
-    dedica CHAR (150) NULL, 
-    tipo_carta tipo_carta NULL,
-    FOREIGN KEY (Cliente) REFERENCES cliente (email),
-    FOREIGN KEY (Corriere) REFERENCES corriere (cf)
-)
-
 INSERT INTO "public"."pacco" ("id", "tipologia", "dimensioni", "costo", "dataora_ordine", "dataora_prevista", "cliente", "corriere", "tipo_assicurazione", "dedica", "tipo_carta") VALUES 
 ('PC001               ', 'Elettronica', '30x20x15', '59.99', '2025-03-10 08:30:00', '2025-03-15 18:00:00', 'porter1@kds.com', 'SMPB74L28R962D  ', 'Garanzia per 1 anno', null, null), 
 ('PC002               ', 'Sanitario', '15x10x5', '29.99', '2025-03-10 09:45:00', '2025-03-17 14:00:00', 'fragile2@brid.com', 'MLKH65G09E341C  ', 'Garanzia per 3 anni', null, null), 

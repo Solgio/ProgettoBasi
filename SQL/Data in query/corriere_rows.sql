@@ -1,15 +1,3 @@
-CREATE TABLE CORRIERE(
-  cf VARCHAR(16) NOT NULL,
-  agenzia VARCHAR (15) NOT NULL, 
-  grado grado NOT NULL, 
-  disponibilità BOOLEAN NOT NULL, 
-  nome_sede VARCHAR(20) NOT NULL,
-  città_sede VARCHAR(10) NOT NULL,
-  PRIMARY KEY (CF),
-  FOREIGN KEY(nome_sede,città_sede) REFERENCES filiale(nome,città)
-  
-)
-
 INSERT INTO "public"."corriere" ("cf", "agenzia", "grado", "disponibilità", "pacchi_attivi") VALUES 
 ('BLFR46D25W783N', 'Bridges', 'Elite Transporter', 'true', '0'), 
 ('GCDX17P54T329M', 'Fragile', 'The Great Deliverer', 'true', '1'), 

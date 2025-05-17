@@ -1,12 +1,3 @@
-CREATE TABLE FILIALE (
-  nome VARCHAR(20) NOT NULL,
-  città VARCHAR(20) NOT NULL,
-  tipo tipo NOT NULL,
-  indirizzo VARCHAR(15) NOT NULL,
-  PRIMARY KEY (nome,città)
-  
-)
-
 INSERT INTO "public"."filiale" ("nome", "città", "tipo", "indirizzo") VALUES 
 ('Capital Knot', 'Central Region', 'Magazzino', '122 Bridge Road'), 
 ('Craftsman Loc', 'Mountain Region', 'Punto di Controllo', '103 Artisan Dr '), 
