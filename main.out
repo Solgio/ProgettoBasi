@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section.1}{Abstract}{}% 1
+\BOOKMARK [1][-]{section.2}{Analisi\040dei\040Requisiti}{}% 2
+\BOOKMARK [1][-]{section.3}{Progettazione\040Concettuale}{}% 3
+\BOOKMARK [1][-]{section.4}{Progettazione\040Logica}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Analisi\040Rindondanze}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Eliminazione\040delle\040Generalizzazioni}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Schema\040Relazionale}{section.4}% 7
+\BOOKMARK [1][-]{section.5}{Implementazione\040in\040PostgreSQL\040e\040Definizione\040delle\040Query}{}% 8
+\BOOKMARK [2][-]{subsection.5.1}{Definizione\040delle\040Query}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.2}{Creazione\040degli\040Indici}{section.5}% 10
+\BOOKMARK [1][-]{section.6}{Applicazione\040Software}{}% 11
