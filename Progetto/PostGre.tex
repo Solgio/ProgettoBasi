@@ -39,12 +39,11 @@ delle Query}
 Supponendo di voler ottimizzare la query num 5, si deve considerare:
 
 \begin{itemize}
-  \item Condizione del JOIN: \texttt{p.cliente = c.email}
-  \item Condizione del JOIN: \texttt{p.id = t.id\_pacco}
+  \item Condizione del JOIN: \texttt{t.id\_pacco = p.id}
   \item Condizione del JOIN: \texttt{t.città\_check\_point = f.città AND t.nome\_check\_point = f.nome}
-  \item Condizione del WHERE: \texttt{t.status = 'Consegnato'}
-  \item GROUP BY sulle colonne: \texttt{c.email}, \texttt{f.nome}, \texttt{f.città}
-  \item HAVING sulla funzione di aggregazione 
+  \item Condizione del JOIN: \texttt{p.corriere = c.cf}
+  \item Condizione del WHERE: \texttt{ f.tipo = 'Locker'AND c.grado = 'Porter'}
+  \item GROUP BY sulle colonne: \texttt{corriere}
 \end{itemize}
 
 
@@ -55,14 +54,14 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \label{ML}
 \end{figure}
 
-\noindent Per il punto 2 è opportuno creare due indici hash su entrambe le colonne del join:
+\noindent Per il punto 2 è opportuno creare quattro indici hash per tutte le condizioni del join:
 \begin{figure}[H]
 \centering
 \includegraphics[width=1 \textwidth]{Resources/INDEX2.png}
 \label{ML}
 \end{figure}
 
-\noindent Per il punto 3 è opportuno creare 4 indici hash su per tutte le condizioni del join:
+\noindent Per il punto 3 è opportuno creare due indici hash su entrambe le colonne del join:
 
 \begin{figure}[H]
 \centering
@@ -70,7 +69,7 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \label{ML}
 \end{figure}
 
-\noindent Per il punto 4 è opportuno creare un indice sull'attributo rispetto a cui il WHERE valuta la sua condizione:
+\noindent Per il punto 4 è opportuno creare due indici per i due attributi rispetto a cui il WHERE valuta la sua condizione:
 
 \begin{figure}[H]
 \centering
@@ -78,14 +77,12 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \label{ML}
 \end{figure}
 
-\noindent Il punto 6 è un GROUP BY e potrebbe quindi essere ottimizzato tramite il seguente indice B+Tree:
-
+\noindent Il punto 5 è un GROUP BY e potrebbe quindi essere ottimizzato tramite il seguente indice B+Tree:
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1 \textwidth]{Resources/INDEX5.png}
 \label{ML}
 \end{figure}  
 
-\noindent Nella pratica, non è necessario tuttavia creare tale indice perché, come anche altri
-sistemi, PostgreSQL automaticamente crea un indice B+ Tree per ogni chiave primaria; in particolare, quindi, esiste già un indice B+Tree per FILIALE e per CLIENTE.
-\noindent Effettivamente, provando a creare i sudetti indici si ottiene un errore che riporta che sono già esistenti.
+\noindent Visto che non si tratta di un attributo che è chiave primaria di una entità POSTGRE non ha già creato l'indice corrispondente. 
