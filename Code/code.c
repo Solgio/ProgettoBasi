@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 
         int scelta;
         printf("Che query vuoi eseguire?\n A tua disposizione abbiamo queste 5 opzioni:\n");
-        printf("\t1. Media del costo dei pacchi di un corriere di un certo grado che sono passati per una filiale di un certo tipo\n\t2. Numero pacchi per bundle con un determinato tipo di assicurazione\n\t3. Clienti con più di 2 pacchi consegnati per filiale\n\t4. Corrieri con bundle con pacchi con garanzia a 3 anni e costo maggiore di 300\n\t5. Status attuale dei pacchi\n");
+        printf("\t1. Media del costo dei pacchi di un corriere di un certo grado che sono passati per una filiale di un certo tipo\n\t2. Numero pacchi per bundle con un determinato tipo di assicurazione\n\t3. Corrieri con tempi di consegna maggiori alla media\n\t4. Corrieri con bundle con pacchi assicurati o regalo e costo specifici\n\t5. Status attuale dei pacchi\n");
         printf("Qual'è la tua scelta? (1-5): ");
         scanf("%d", &scelta);
         while (scelta < 1 || scelta > 5)
@@ -143,7 +143,6 @@ int main(int argc, char **argv)
             {
                 fprintf(stderr, "Prepare failed: %s", PQerrorMessage(conn));
                 PQclear(res);
-                // Handle error appropriately
             }
             PQclear(res);
 
@@ -236,53 +235,39 @@ int main(int argc, char **argv)
 
         if (scelta == 3)
         {
-            // Query per selezionare i dati dalla vista
-            const char *query3 = "SELECT email,f.nome,f.città, count(*) as n_pacchi_attivi "
-                                 "FROM cliente as c "
-                                 "JOIN pacco as p ON p.cliente=c.email "
-                                 "JOIN tracking as t ON p.id=t.id_pacco "
-                                 "JOIN filiale as f ON t.città_check_point=f.città AND t.nome_check_point=f.nome "
-                                 "WHERE (t.status=$1) "
-                                 "GROUP BY email,f.nome,f.città "
-                                 "HAVING count(*) >=$2";
-            res = PQprepare(conn, "query3", query3, 2, NULL);
-
-            int status;
-            printf("Scegli il tipo di status per il pacco. Le opzioni sono:\n");
-            for (int i = 0; i < 5; i++)
-            {
-                printf("\t%d. %s\n", i + 1, STATUS[i]);
-            }
-            printf("Quale tipo vuoi? (1-5): ");
-            scanf("%d", &status);
-            while (status < 1 || status > 5)
-            {
-                printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
-                printf("Quale grado vuoi? (1-5): ");
-                scanf("%d", &status);
-            }
-
-            int numero_pacchi_per_filiale;
-            printf("Scegli quanti pacchi vuole per filiale:\n");
-            scanf("%d", &numero_pacchi_per_filiale);
-
-            char num_pacchi_str[12]; // Buffer for 32-bit integer
-            snprintf(num_pacchi_str, sizeof(num_pacchi_str), "%d", numero_pacchi_per_filiale);
-
-            const char *paramValues[2] = {
-                STATUS[status - 1],
-                num_pacchi_str};
-
-            res = PQexecPrepared(conn, "query3", 2, paramValues, NULL, NULL, 0);
+            const char *query3 = "SELECT p.corriere, AVG(h.differenza) AS media_corriere "
+                                 "FROM ( "
+                                 "    SELECT t1.id_pacco, p1.corriere, MAX(t1.data_ora) - p1.dataora_ordine AS differenza "
+                                 "    FROM "
+                                 "        tracking AS t1 "
+                                 "    JOIN pacco AS p1 ON p1.id = t1.id_pacco "
+                                 "    WHERE t1.status = 'Consegnato' "
+                                 "    GROUP BY t1.id_pacco, p1.dataora_ordine, p1.corriere "
+                                 ") AS h "
+                                 "JOIN pacco AS p ON p.id = h.id_pacco "
+                                 "GROUP BY p.corriere "
+                                 "HAVING AVG(h.differenza) > ( "
+                                 "    SELECT AVG(differenza) "
+                                 "    FROM ( "
+                                 "        SELECT t1.id_pacco, MAX(t1.data_ora) - p2.dataora_ordine AS differenza "
+                                 "        FROM tracking AS t1 "
+                                 "        JOIN pacco AS p2 ON p2.id = t1.id_pacco "
+                                 "        WHERE t1.status = 'Consegnato' "
+                                 "        GROUP BY t1.id_pacco, p2.dataora_ordine "
+                                 "    ) AS m "
+                                 ") "
+                                 "ORDER BY media_corriere DESC;";
+            PGresult *res = PQexec(conn, query3);
             checkResults(res, conn);
 
             // Stampa i risultati
             int rows = PQntuples(res);
             int cols = PQnfields(res);
 
-            printf("\n3. Clienti con più di %d pacchi %s per filiale", numero_pacchi_per_filiale, STATUS[status - 1]);
-            printf("Cliente\t\t\tNumero pacchi\n");
-            printf("--------\t\t\t------\n");
+            printf("\nCorrieri più lenti del tempo medio di consegna:\n");
+            printf("ID Corriere\t\t\tTempo di consegna medio\n");
+            printf("-----------\t\t\t-----------------------\n");
+
             printResult(rows, cols, res);
             PQclear(res);
         }
@@ -470,15 +455,14 @@ int main(int argc, char **argv)
 
         if (scelta == 5)
         {
-
-            const char *selectSQL = "SELECT t1.id_pacco, t1.status "
+            const char *query5 = "SELECT t1.id_pacco, t1.status "
                                     "FROM tracking t1 "
                                     "INNER JOIN ("
                                     "    SELECT id_pacco, MAX(data_ora) as max_data_ora "
                                     "    FROM tracking "
                                     "    GROUP BY id_pacco"
                                     ") t2 ON t1.id_pacco = t2.id_pacco AND t1.data_ora = t2.max_data_ora;";
-            PGresult *res = PQexec(conn, selectSQL);
+            PGresult *res = PQexec(conn, query5);
             checkResults(res, conn);
 
             // Stampa i risultati
