@@ -9,6 +9,7 @@
 #define PG_PASS "iltVoi6uYrskVeSR"
 #define PG_PORT 5432
 
+//! ENUM PER LIMITARE LE SCELTE (SICUREZZA E COMPATIBILITA' CON L'INFRASTRUTTURA)
 const char *GRADO_CORRIERE[] = {
     "Porter",
     "Skilled Handler",
@@ -37,6 +38,7 @@ const char *STATUS[] = {
     "Autorizzato",
     "Fase di Controllo"};
 
+//! FUNZIONI PER LA GESTIONE DEGLI ERRORI
 void checkCommand(PGresult *res, PGconn *conn)
 {
     if (PQresultStatus(res) != PGRES_COMMAND_OK)
@@ -59,6 +61,7 @@ void checkResults(PGresult *res, PGconn *conn)
     }
 }
 
+//! FUNZIONE PER STAMPARE I RISULTATI
 void printResult(int rows, int cols, PGresult *res)
 {
     for (int i = 0; i < rows; i++)
@@ -110,6 +113,7 @@ int main(int argc, char **argv)
 
     printf("Pronto a partire?\n");
     int end = 0;
+    //! Ciclo che permette di eseguire più query
     while (end != 1)
     {
         printf("Premi invio per continuare...\n");
@@ -120,6 +124,7 @@ int main(int argc, char **argv)
         printf("\t1. Media del costo dei pacchi di un corriere di un certo grado che sono passati per una filiale di un certo tipo\n\t2. Numero pacchi per bundle con un determinato tipo di assicurazione\n\t3. Corrieri con tempi di consegna maggiori alla media\n\t4. Corrieri con bundle con pacchi assicurati o regalo e costo specifici\n\t5. Status attuale dei pacchi\n");
         printf("Qual'è la tua scelta? (1-5): ");
         scanf("%d", &scelta);
+        //! Controllo che la scelta sia valida (presente anche in seguito ma non ripetuto)
         while (scelta < 1 || scelta > 5)
         {
             printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
@@ -128,7 +133,8 @@ int main(int argc, char **argv)
         }
         printf("\tHai scelto molto bene!  (cit)\n\n");
         PGresult *res;
-
+        //! Scelta della query da eseguire
+        //! QUERY 1 (PARAMETRIZZABILE)
         if (scelta == 1)
         {
             const char *query1 = "SELECT corriere, AVG(p.costo) AS costo_medio "
@@ -194,6 +200,7 @@ int main(int argc, char **argv)
             PQclear(res);
         }
 
+        //! QUERY 2 (PARAMETRIZZABILE)
         if (scelta == 2)
         {
             const char *query2 = "SELECT b.id_bundle, COUNT(*) as n_garanzia_tre_anni "
@@ -232,7 +239,7 @@ int main(int argc, char **argv)
             printResult(rows, cols, res);
             PQclear(res);
         }
-
+        //! QUERY 3 (NON PARAMETRIZZABILE)
         if (scelta == 3)
         {
             const char *query3 = "SELECT p.corriere, AVG(h.differenza) AS media_corriere "
@@ -272,6 +279,7 @@ int main(int argc, char **argv)
             PQclear(res);
         }
 
+        //! QUERY 4 (SUPER-PARAMETRIZZABILE)
         if (scelta == 4)
         {
             int costo;
@@ -289,6 +297,7 @@ int main(int argc, char **argv)
                 printf("Vuoi filtrare per pacchi assicurati o regalo?    (0=assicurati, 1=regalo): ");
                 scanf("%d", &filtro);
             }
+            //! FILTRO X PACCHI ASSICURATI
             if (filtro == 0)
             {
                 const char *query4 = "SELECT cf, count(*) "
@@ -324,8 +333,10 @@ int main(int argc, char **argv)
                     TIPO_ASSICURAZIONE[assicurazione - 1]};
                 res = PQexecPrepared(conn, "query4", 2, paramValues, NULL, NULL, 0);
             }
+            //! FILTRO X PACCHI REGALO
             else
             {
+                //! SCELTA DEI PARAMETRI DA INSERIRE NELLA QUERY
                 int caso;
                 printf("Cosa vuoi dalla query:\n\t1. Solo tipo carta\n\t2. Solo dedica\n\t3. Entrambi\n Cosa preferisci? (1-3): ");
                 scanf("%d", &caso);
@@ -335,7 +346,7 @@ int main(int argc, char **argv)
                     printf("Cosa vuoi dalla query:\n\t1. Solo tipo carta\n\t2. Solo dedica\n\t3. Entrambi\n Cosa preferisci? (1-3): ");
                     scanf("%d", &filtro);
                 }
-
+                //! SOLO TIPO CARTA
                 if (caso == 1)
                 {
                     const char *query4a = "SELECT cf, count(*) "
@@ -373,6 +384,7 @@ int main(int argc, char **argv)
                     res = PQexecPrepared(conn, "query4a", 2, paramValues, NULL, NULL, 0);
                 }
 
+                //! SOLO DEDICA
                 else if (caso == 2)
                 {
                     const char *query4b = "SELECT cf, count(*) "
@@ -398,6 +410,7 @@ int main(int argc, char **argv)
                     res = PQexecPrepared(conn, "query4b", 2, paramValues, NULL, NULL, 0);
                 }
 
+                //! ENTRAMBI
                 else
                 {
                     const char *query4c = "SELECT cf, count(*) "
@@ -453,6 +466,7 @@ int main(int argc, char **argv)
             PQclear(res);
         }
 
+        //! QUERY 5 (NON PARAMETRIZZABILE)
         if (scelta == 5)
         {
             const char *query5 = "SELECT t1.id_pacco, t1.status "
