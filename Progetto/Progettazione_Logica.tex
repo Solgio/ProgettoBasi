@@ -159,8 +159,8 @@ Costo totale senza ridondanza = 120*3*2+48*1+120*48*2= 720+48+11520=12288
 L'analisi suggerisce dunque di mantenere l'attributo ridondante PACCHIATTIVI in CORRIERE, in quanto il costo totale con ridondanza è significativamente inferiore rispetto al costo totale senza ridondanza, rendendo così gli accessi ottimizati.\\
 Inoltre, l'attributo ridondante PACCHIATTIVI in CORRIERE è utile per monitorare l'operato di ogni corriere e per ottimizzare le operazioni di consegna.
 L'attributo pacchi attivi, per essere implementato correttamente in SQL, avrebbe bisogno di alcuni vincoli che consentano un aggiornamento automatico dei suoi valori.\\
-Per implementare tale strumentalità sarebbero necessarie delle nozioni (come quella di Trigger) che non sono state affrontate durante il corso. Infatti i CHECK non sono sufficienti a garantire dei vincoli relativi ai valori di attributi appartenenti a tabelle diverse.\\
-Nello schema logico, l'attributo PACCHIATTIVI in CORRIERE è stato mantenuto e manualmente i suoi valori sono stati resi coerenti con gli altri presenti. Non viene però garantito il vincolo che sarebbe concettualmente necessario.
+Per implementare tale vincoli i CHECK non sono sufficienti, sarebbero necessarie delle nozioni (come quella di Trigger) che non sono state affrontate durante il corso.\\
+Nello schema logico, l'attributo PACCHIATTIVI in CORRIERE è stato mantenuto e manualmente i suoi valori sono stati resi coerenti con gli altri presenti. Non viene però garantito il vincolo che sarebbe concettualmente necessario in quanto non implementabile con gli strumenti attuali.
 
 
 
