@@ -7,31 +7,31 @@ delle Query}
   \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/QUERY1.png}
-\label{ML}
+\label{Q1}
 \end{figure}
 2. \textbf{QUERY 2} Numero pacchi per bundle con garanzia 3 anni
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/QUERY2.png}
-\label{ML}
+\label{Q2}
 \end{figure}
 3. \textbf{QUERY 3} Corrieri che hanno un tempo di consegna medio dei loro pacchi superiore al tempo medio di consegna di un pacco:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6 \textwidth]{Resources/QUERY3.png}
-\label{ML}
+\label{Q3}
 \end{figure}
 4. \textbf{QUERY 4} Corrieri con bundle con pacchi con garanzia a 3 anni e costo maggiore di 300
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/QUERY4.png}
-\label{ML}
+\label{Q4}
 \end{figure} 
 5. \textbf{QUERY 5} Ultimo aggiornamento del tracking di un pacco
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/QUERY5.png}
-\label{ML}
+\label{Q5}
 \end{figure}
 
 \subsection{Creazione degli Indici} 
@@ -51,14 +51,14 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/INDEX1.png}
-\label{ML}
+\label{I1}
 \end{figure}
 
 \noindent Per il punto 2 è opportuno creare quattro indici hash per tutte le condizioni del join:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/INDEX2.png}
-\label{ML}
+\label{I2}
 \end{figure}
 
 \noindent Per il punto 3 è opportuno creare due indici hash su entrambe le colonne del join:
@@ -66,7 +66,7 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8 \textwidth]{Resources/INDEX3.png}
-\label{ML}
+\label{I3}
 \end{figure}
 
 \noindent Per il punto 4 è opportuno creare due indici per i due attributi rispetto a cui il WHERE valuta la sua condizione:
@@ -74,7 +74,7 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \begin{figure}[H]
 \centering
 \includegraphics[width=1 \textwidth]{Resources/INDEX4.png}
-\label{ML}
+\label{I4}
 \end{figure}
 
 \noindent Il punto 5 è un GROUP BY e potrebbe quindi essere ottimizzato tramite il seguente indice B+Tree:
@@ -82,7 +82,7 @@ Supponendo di voler ottimizzare la query num 5, si deve considerare:
 \begin{figure}[H]
 \centering
 \includegraphics[width=1 \textwidth]{Resources/INDEX5.png}
-\label{ML}
+\label{I5}
 \end{figure}  
 
 \noindent Visto che non si tratta di un attributo che è chiave primaria di una entità POSTGRE non ha già creato l'indice corrispondente. 
