@@ -130,7 +130,7 @@ int main(int argc, char **argv)
     while (end != 1)
     {
         printf("Premi invio per continuare...\n");
-        getchar(); // Consume the newline character from previous scanf
+        getchar();
 
         clearScreen(); // Clear the screen before showing the menu again
 
@@ -139,7 +139,6 @@ int main(int argc, char **argv)
         printf("\t1. Media del costo dei pacchi di un corriere di un certo grado che sono passati per una filiale di un certo tipo\n\t2. Numero pacchi per bundle con un determinato tipo di assicurazione\n\t3. Corrieri con tempi di consegna maggiori alla media\n\t4. Corrieri con bundle con pacchi assicurati o regalo e costo specifici\n\t5. Status attuale dei pacchi\n");
         printf("Qual'è la tua scelta? (1-5): ");
         scanf("%d", &scelta);
-        // Consume the newline character after scanf
         while (getchar() != '\n');
 
         //! Controllo che la scelta sia valida (presente anche in seguito ma non ripetuto)
@@ -148,12 +147,12 @@ int main(int argc, char **argv)
             printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
             printf("Le scelte sono 5, riprova: ");
             scanf("%d", &scelta);
-            while (getchar() != '\n'); // Consume the newline
+            while (getchar() != '\n'); 
         }
         printf("\tHai scelto molto bene!  (cit)\n\n");
         PGresult *res;
         //! Scelta della query da eseguire
-        switch (scelta) // Using switch statement
+        switch (scelta) 
         {
             case 1: //! QUERY 1 (PARAMETRIZZABILE)
             {
@@ -174,13 +173,13 @@ int main(int argc, char **argv)
                 }
                 printf("Quale tipo vuoi? (1-3): ");
                 scanf("%d", &tipo_filiale);
-                while (getchar() != '\n'); // Consume the newline
+                while (getchar() != '\n'); 
                 while (tipo_filiale < 1 || tipo_filiale > 3)
                 {
                     printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
                     printf("Quale tipo vuoi? (1-3): ");
                     scanf("%d", &tipo_filiale);
-                    while (getchar() != '\n'); // Consume the newline
+                    while (getchar() != '\n'); 
                 }
 
                 printf("Scegli il Grado del Corriere. Le opzioni sono:\n");
@@ -190,13 +189,13 @@ int main(int argc, char **argv)
                 }
                 printf("Quale grado vuoi? (1-4): ");
                 scanf("%d", &grado);
-                while (getchar() != '\n'); // Consume the newline
+                while (getchar() != '\n'); 
                 while (grado < 1 || grado > 4)
                 {
                     printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
                     printf("Quale grado vuoi? (1-4): ");
                     scanf("%d", &grado);
-                    while (getchar() != '\n'); // Consume the newline
+                    while (getchar() != '\n'); 
                 }
 
                 const char *paramValues[2] = {
@@ -215,7 +214,7 @@ int main(int argc, char **argv)
                 printf("-----------\t\t\t-----------\n");
                 printResult(rows, cols, res);
                 PQclear(res);
-                break; // Don't forget break;
+                break; 
             }
 
             case 2: //! QUERY 2 (PARAMETRIZZABILE)
@@ -234,13 +233,13 @@ int main(int argc, char **argv)
                 }
                 printf("Quale tipo vuoi? (1-3): ");
                 scanf("%d", &assicurazione);
-                while (getchar() != '\n'); // Consume the newline
+                while (getchar() != '\n'); 
                 while (assicurazione < 1 || assicurazione > 3)
                 {
                     printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
                     printf("Quale tipo vuoi? (1-3): ");
                     scanf("%d", &assicurazione);
-                    while (getchar() != '\n'); // Consume the newline
+                    while (getchar() != '\n'); 
                 }
 
                 const char *paramValue = TIPO_ASSICURAZIONE[assicurazione - 1];
@@ -521,9 +520,8 @@ int main(int argc, char **argv)
 
             default:
             {
-                // This case should ideally not be reached if input validation is strict,
-                // but it's good practice to have a default case for unexpected values.
-                printf("Scelta non valida. Si prega di selezionare un'opzione tra 1 e 5.\n");
+                printf("\tHai scelto... molto MALE!\n\tTrovo insopportabile la sua mancanza di Input corretto\n");
+                printf("Si prega di selezionare un'opzione tra 1 e 5.\n");
                 break;
             }
         }
